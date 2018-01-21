@@ -11,8 +11,8 @@ folders:
         to: /home/vagrant/code
 sites:
     -
-        map: homestead.test
-        to: /home/vagrant/code/public
+        map: guitar.hub
+        to: /home/vagrant/code/webroot
 databases:
     - guitar_hub
 name: guitarhub
