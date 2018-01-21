@@ -229,9 +229,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
+            'username' => 'homestead',
             'password' => 'secret',
-            'database' => 'my_app',
+            'database' => 'guitar_hub',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
