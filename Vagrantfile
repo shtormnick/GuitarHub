@@ -46,5 +46,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.ssh.password = "vagrant"   
     config.vm.provider :virtualbox do |vb|
         vb.gui = true
+        vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
     end
 end
