@@ -42,6 +42,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.hostsupdater.aliases = settings['sites'].map { |site| site['map'] }
     end
         
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+    end
+       
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"   
     config.vm.provider :virtualbox do |vb|
