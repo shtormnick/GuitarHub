@@ -75,6 +75,18 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks(DashedRoute::class);
 });
 
+
+// Новый маршрут добавляемый нами для нашего экшена для тегов.
+// Символ `*` в конце говорит CakePHP что этот экшен
+// принимает параметры.
+Router::scope(
+    '/bookmarks',
+    ['controller' => 'Bookmarks'],
+    function ($routes) {
+        $routes->connect('/tagged/*', ['action' => 'tags']);
+    }
+);
+
 /**
  * Load all plugin routes. See the Plugin documentation on
  * how to customize the loading of plugin routes.

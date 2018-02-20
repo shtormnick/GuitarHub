@@ -93,4 +93,26 @@ class BookmarksTable extends Table
 
         return $rules;
     }
+
+    // Аргумент $query это экземпляр класса конструктора запросов.
+// Массив $options будет содержать опцию 'tags' переданную нами
+// в find('tagged') в экшене нашего Контроллера.
+    public function findTagged(Query $query, array $options)
+    {
+        $bookmarks = $this->find()
+            ->select(['id', 'url', 'title', 'description']);
+
+        if (empty($options['tags'])) {
+            $bookmarks
+                ->leftJoinWith('Tags')
+                ->where(['Tags.title IS' => null]);
+        } else {
+            $bookmarks
+                ->innerJoinWith('Tags')
+                ->where(['Tags.title IN ' => $options['tags']]);
+        }
+
+        return $bookmarks->group(['Bookmarks.id']);
+    }
+
 }
