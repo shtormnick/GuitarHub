@@ -130,4 +130,27 @@ class BookmarksController extends AppController
         ]);
     }
 
+    public function isAuthorized($user)
+    {
+        $action = $this->request->getParam('action');
+
+        // Экшены add и index всегда разрешены.
+        if (in_array($action, ['index', 'add', 'tags'])) {
+            return true;
+        }
+        // Для всех остальных экшенов требуется id.
+        if (!$this->request->getParam('pass.0')) {
+            return false;
+        }
+
+        // Проверяем, что закладка принадлежит текущему пользователю.
+        $id = $this->request->getParam('pass.0');
+        $bookmark = $this->Bookmarks->get($id);
+        if ($bookmark->user_id == $user['id']) {
+            return true;
+        }
+        return parent::isAuthorized($user);
+    }
+
+
 }
