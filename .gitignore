@@ -19,3 +19,5 @@
 /logs/*
 !/logs/empty
 .vagrant
+.idea
+tmp

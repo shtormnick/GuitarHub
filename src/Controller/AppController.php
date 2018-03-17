@@ -37,18 +37,37 @@ class AppController extends Controller
      *
      * @return void
      */
+
+
+
+
     public function initialize()
     {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => 'Controller',
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'unauthorizedRedirect' => $this->referer() // Если не авторизованы, то возвращаем на страницу, где только что были
+        ]);
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+        // Разрешение экшена display, чтобы наш контроллер pages
+        // продолжал работать.
+        $this->Auth->allow(['display']);
+    }
+
+    public function isAuthorized($user)
+    {
+        return false;
     }
 }
